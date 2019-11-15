@@ -3,6 +3,11 @@
 #include <string.h>
 #include <locale.h>
 #include "aux.h"
+#include "splay.h"
+
+//  ---DEVEM SER IMPLEMENTADOS NA MAIN
+int Frequencia(char* palavra);  //...
+void contador (int k1, int k2); //...
 
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
@@ -52,4 +57,5 @@ int main( int argc, char *argv[] ) {
 
         return 0;
     }
+
 }

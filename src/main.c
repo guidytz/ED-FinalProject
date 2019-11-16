@@ -3,15 +3,17 @@
 #include <string.h>
 #include <locale.h>
 #include "aux.h"
+#include "RN.h"
 
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,""); //para imprimir corretamente na tela os caracteres acentuados
     FILE * texto;
     FILE * cmd;
     FILE * saida;
+    RNtree *t = NULL;
 
     char *palavra, linha[1000]; 
-    char separador[]= {" ,.&*\%\?!;/-'@\"$#=><()][}{:\n\t"};
+    char separador[]= {" ,.&*\\%%\?!;/-−'@\"$#=><()][}{:\n\t"};
 
     if ( argc != 4 ) {
         printf ("Número incorreto de parâmetros.\n Para chamar o programa digite: exemplo <arq_texto> <arq_ops> <arq_saida>\n");
@@ -37,12 +39,13 @@ int main( int argc, char *argv[] ) {
                     palavra = strtok(linha, separador);
                     
                     while ( palavra != NULL ) {
-                        // fprintf(saida,"%s ", strlwr(palavra));
-                        // palavra = strtok(NULL, separador);
+                        t = Insere(t, stralloc(strlwr(palavra)));
+                        palavra = strtok(NULL, separador);
                     }
                 }
 
-                // printf("Arquivo %s gerado com sucesso.\n",argv[2]);
+                Destroi(t);
+                printf("Arquivo %s gerado com sucesso.\n",argv[2]);
             } 
         } 
         

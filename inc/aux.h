@@ -1,5 +1,5 @@
-#ifndef  __AUXH__
-#define __AUXH__
+#ifndef  __AUX_H__
+#define __AUX_H__
 
 #ifdef __linux__
 /**
@@ -19,4 +19,4 @@ char *strlwr( char *str );
  */
 char *stralloc( char *str );
 
-#endif
+#endif // __AUX_H__

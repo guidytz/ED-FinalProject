@@ -29,28 +29,28 @@ $(PROJ_NAME): $(OBJ)
 	@ echo 'Building binary using GCC linker: $@'
 	@ $(CC) $^ -o $@ 
 	@ echo 'Finished building binary: $@'
-	@ echo ' '
  
 ./obj/%.o: ./src/%.c ./inc/%.h
 	@ echo 'Building target using GCC compiler: $<'
 	@ $(CC) $< $(CC_FLAGS) -o $@
-	@ echo ' '
  
 ./obj/main.o: ./src/main.c $(H_SOURCE)
 	@ echo 'Building target using GCC compiler: $<'
 	@ $(CC) $< $(CC_FLAGS) -o $@
-	@ echo ' '
  
 objFolder:
 	@ mkdir -p obj
  
 clean:
+	@ echo 'Removing object files'
 	@ $(RM) ./obj/*.o *~
 	@ rmdir obj
 
 remove:
+	@ echo 'Removing executable'
 	@ rm $(PROJ_NAME)
 
 remove-all: clean remove
+	@ echo 'All cleared'
  
 .PHONY: all clean remove remove-all

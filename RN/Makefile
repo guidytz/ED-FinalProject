@@ -1,10 +1,3 @@
-/*
- * Created Date: Saturday, November 16th 2019, 2:10:54 pm
- * Author: Guilherme Dytz dos Santos
- * -----
- * Last Modified: Saturday, November 16th 2019, 2:10:55 pm
- * Modified By: Guilherme Dytz dos Santos
- */
 # Name of the project
 PROJ_NAME = contador
  
@@ -18,11 +11,13 @@ H_SOURCE = $(wildcard ./inc/*.h)
 OBJ = $(subst .c,.o,$(subst src,obj,$(C_SOURCE)))
  
 # Compiler and linker
-CC=gcc
+CC = gcc
+
+LIBS = -lm
  
 # Flags for compiler
-CC_FLAGS=-c         \
-		 -I./inc
+CC_FLAGS = -c         \
+		   -I./inc	
  
 # Command used at clean target
 RM = rm -rf
@@ -34,7 +29,7 @@ all: objFolder $(PROJ_NAME)
  
 $(PROJ_NAME): $(OBJ)
 	@ echo 'Building binary using GCC linker: $@'
-	@ $(CC) $^ -o $@ 
+	@ $(CC) $^ -o $@ $(LIBS)
 	@ echo 'Finished building binary: $@'
  
 ./obj/%.o: ./src/%.c ./inc/%.h

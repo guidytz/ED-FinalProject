@@ -1,2 +1,5 @@
 # ignore vscode folder
 /.vscode
+
+#debug file
+debug.txt

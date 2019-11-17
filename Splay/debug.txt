@@ -1,0 +1,6 @@
+
+| ->[DEBUG] Foram carregadas 2377 palavras em 0,000019s
+| ->[DEBUG] Quantidade de palavras distintas: 1031
+| ->[DEBUG] Comparações realizadas: 16194
+| ->[DEBUG] Rotações realizadas: 0
+| ->[DEBUG] Arquivo [../../test/oper_pequeno1.txt] gerado com sucesso.

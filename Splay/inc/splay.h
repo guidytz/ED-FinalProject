@@ -1,5 +1,3 @@
-
-// Defini��o da Estrutura
 typedef struct SplayNode SplayTree;
 
 struct SplayNode { 
@@ -29,4 +27,4 @@ void caminha_ECD(SplayTree* nodo);
 SplayTree* rot_esquerda(SplayTree* nodo);
 SplayTree* rot_direita(SplayTree* nodo);
 void Desenha(SplayTree* nodo , int nivel);
-SplayTree* consulta_splay(SplayTree* nodo, char* palavra); // Auxiliar do Inserem, al�m de fazer o Splay Insere o elemento.
+SplayTree* consulta_splay(SplayTree* nodo, char* palavra);

@@ -8,17 +8,17 @@ SplayTree* novo_nodo(char* palavra, SplayTree* esq, SplayTree* dir){
 	x->palavra = palavra; x->esq = esq; x->dir = dir;
 	x->ocorrencias = 1;
 	return x;
-};
+}
 
 SplayTree* insere_nodo(char* palavra, SplayTree* t){	
   	return splay(t,palavra);
-};
+}
 
 SplayTree* consulta_arvore(SplayTree* nodo, char* palavra){
 	if (nodo == NULL) return NULL;
 	nodo = consulta_splay(nodo, palavra);
 	return nodo;
-};
+}
 
 SplayTree* remove_nodo(SplayTree* nodo, char* palavra){
 	SplayTree* x;
@@ -35,14 +35,13 @@ SplayTree* remove_nodo(SplayTree* nodo, char* palavra){
 		return x;
 	}
 	return nodo;                         /* It wasn't there */
-};
+}
 
-void destroi_arvore(SplayTree* nodo)
-{
+void destroi_arvore(SplayTree* nodo){
 	if(nodo->esq != NULL) destroi_arvore(nodo->esq);
 	if(nodo->dir != NULL) destroi_arvore(nodo->dir);
 	free(nodo);
-};
+}
 
 SplayTree* splay(SplayTree* nodo, char* palavra){
 	if (nodo == NULL) {
@@ -116,23 +115,21 @@ SplayTree* consulta_splay(SplayTree* nodo, char* palavra){
 			return rot_esquerda(nodo);
 			} else return rot_esquerda(nodo);
 		} else return nodo;
-};
+}
 
-SplayTree* rot_direita(SplayTree* nodo)
-{ 
+SplayTree* rot_direita(SplayTree* nodo){ 
 	SplayTree* aux = nodo->esq;
 	nodo->esq = aux->dir;
 	aux->dir = nodo;
 	return aux; 
-};
+}
 
-SplayTree* rot_esquerda(SplayTree* nodo)
-{ 
+SplayTree* rot_esquerda(SplayTree* nodo){ 
 	SplayTree* aux = nodo->dir;
 	nodo->dir = aux->esq;
 	aux->esq = nodo;
 	return aux;
-};
+}
 
 void Desenha(SplayTree* nodo, int nivel){
 	printf("\n");
@@ -147,7 +144,7 @@ void Desenha(SplayTree* nodo, int nivel){
 		printf("\ndir:");
 		if (nodo->dir != NULL) Desenha(nodo->dir, (nivel+1));
 	}else printf("Arvore Vazia");
-};
+}
 
 void caminha_ECD(SplayTree* nodo){
 	if(nodo != NULL){

@@ -1,29 +1,32 @@
 
 // Defini��o da Estrutura
-typedef struct SplayTree PtNodo;
-struct SplayTree {
-    int key;
-    int ocorrencias;
+typedef struct SplayNode SplayTree;
+
+struct SplayNode { 
     char* palavra;
-    PtNodo* esq;
-    PtNodo* dir;
+    int ocorrencias;
+    SplayTree* esq;
+    SplayTree* dir;
 };
 
-// Defini��o das Fun��es
-PtNodo* Novo(char* palavra, PtNodo* esq, PtNodo* dir);
-PtNodo* Insere(char* palavra, PtNodo* t);
-PtNodo* Splay(PtNodo* t, char* palavra);
-PtNodo* Consulta(PtNodo* t, char* palavra);
-PtNodo* Remove(PtNodo* t, char* palavra);
-void Destroi(PtNodo* t);
+SplayTree* splay_tree;
+int rotacoes, comparacoes;
 
-//TODO
-int Altura(PtNodo* t);      //DONE
-int Fator(PtNodo* t);       //DONE
-int ContaNodos(PtNodo* t);  //DONE
+SplayTree* novo_nodo(char* palavra, SplayTree* esq, SplayTree* dir);
+SplayTree* insere_nodo(char* palavra, SplayTree* nodo);
+SplayTree* splay(SplayTree* nodo, char* palavra);
+SplayTree* consulta_arvore(SplayTree* nodo, char* palavra);
+SplayTree* remove_nodo(SplayTree* nodo, char* palavra);
+void destroi_arvore(SplayTree* nodo);
 
-// Fun��es Auxiliares
-PtNodo* RotEsq(PtNodo* t);
-PtNodo* RotDir(PtNodo* t);
-void Desenha(PtNodo* t , int nivel);
-PtNodo* ConsultaSplay(PtNodo* t, char* palavra); // Auxiliar do Inserem, al�m de fazer o Splay Insere o elemento
+int conta_nodos(SplayTree* nodo);
+int altura(SplayTree* nodo);
+int fator(SplayTree* nodo);
+int frequencia(char* palavra);
+int soma_frequencias(SplayTree* nodo);
+void caminha_ECD(SplayTree* nodo);
+
+SplayTree* rot_esquerda(SplayTree* nodo);
+SplayTree* rot_direita(SplayTree* nodo);
+void Desenha(SplayTree* nodo , int nivel);
+SplayTree* consulta_splay(SplayTree* nodo, char* palavra); // Auxiliar do Inserem, al�m de fazer o Splay Insere o elemento.

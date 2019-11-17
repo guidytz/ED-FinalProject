@@ -1,6 +1,6 @@
 # ED-FinalProject
 
-This is the master folder for the final project from Data Structures course
+This is the master branch of the Data Structures course final project.
 
 ## Installation
 

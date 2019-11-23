@@ -22,7 +22,11 @@ int altura(SplayTree* nodo);
 int fator(SplayTree* nodo);
 int frequencia(char* palavra);
 int soma_frequencias(SplayTree* nodo);
+int maior_fator(SplayTree* nodo);
+int get_rotacoes();
+int get_comparacoes();
 void caminha_ECD(SplayTree* nodo);
+int get_maior(int a, int b, int c);
 
 SplayTree* rot_esquerda(SplayTree* nodo);
 SplayTree* rot_direita(SplayTree* nodo);

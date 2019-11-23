@@ -9,7 +9,7 @@
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,"");
     FILE * texto;
-    FILE * commands_file;
+    FILE * arquivo_operacoes;
     FILE * saida;
 
     splay_tree = NULL;
@@ -29,39 +29,58 @@ int main( int argc, char *argv[] ) {
 
             return 1;
         } else {
-            commands_file = fopen(argv[2], "r"); 
-            if (commands_file == NULL){
+            arquivo_operacoes = fopen(argv[2], "r"); 
+            if (arquivo_operacoes == NULL){
                 printf ("\nErro ao abrir o arquivo %s", argv[2]);
                 fclose(texto);
 
                 return 1;
             } else {
-                clock_t start_timestamp, end_timestamp;
+                clock_t time_stamp;
                 int insert_counter = 0;
                 saida = fopen (argv[3], "w"); 
+                time_stamp = clock();
                 while ( fgets(linha, 1000, texto) ) {
                     palavra = strtok(linha, separador);
-                    
                     //Inserção das palavras na arvore
-                    start_timestamp = clock();
                     while ( palavra != NULL ) {
                         splay_tree = insere_nodo(stralloc(strlwr(palavra)), splay_tree);
                         palavra = strtok(NULL, separador);
-                    }
-                    end_timestamp = clock();
+                    }                    
                 }
-                printf("\n| ->[DEBUG] Foram carregadas %d palavras em %fs", soma_frequencias(splay_tree), ((double) (end_timestamp - start_timestamp)) / CLOCKS_PER_SEC);
-                printf("\n| ->[DEBUG] Quantidade de palavras distintas: %d", conta_nodos(splay_tree));
-                printf("\n| ->[DEBUG] Comparações realizadas: %d", comparacoes);
-                printf("\n| ->[DEBUG] Rotações realizadas: %d", rotacoes);
-                printf("\n| ->[DEBUG] Arquivo [%s] gerado com sucesso.\n",argv[2]);
+                time_stamp = clock() - time_stamp;
+                fprintf(saida, "**********ESTATÍSTICAS DA GERAÇÃO DA ÁRVORE SPLAY *************\n");
+                fprintf(saida, "Número de nodos: %d\n", conta_nodos(splay_tree));
+                fprintf(saida, "Altura: %d\n", altura(splay_tree));
+                fprintf(saida, "Fator de Balanceamento: %d\n", maior_fator(splay_tree));
+                fprintf(saida, "Tempo: %.5f\n", ((double) time_stamp) / CLOCKS_PER_SEC);
+                fprintf(saida, "Rotações: %d\n", get_rotacoes());
+                fprintf(saida, "Comparações: %d\n", get_comparacoes());
+                fprintf(saida, "*************************************************************\n");
+                time_stamp = clock();
+                while ( fgets(linha, 1000, arquivo_operacoes) ) {
+                    fprintf(saida, "%s", linha);
+                    char * string = strtok(linha, separador);
+                    if(strcmp(string, "F") == 0){
+                        string = strtok(NULL, separador);
+                        string[strlen(string)-1] = '\0';
+                        fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(string));
+                    }else{
+                        int  b_1 = atoi(strtok(NULL, separador));
+                        int  b_2 = atoi(strtok(NULL, separador));
+                        
+                    }
+                    fprintf(saida, "**************************\n");
+                }
+                time_stamp = clock() - time_stamp;
+                fprintf(saida, "Tempo: %f\n", ((double) time_stamp)/CLOCKS_PER_SEC);
+                fprintf(saida, "Comparacoes");
+                caminha_ECD(splay_tree);
                 destroi_arvore(splay_tree);
-            } 
-        } 
-        // tratar  (travessao bizarro "caso, dizia")
-        // tratar caso "d'agua"
+            }
+        }
         fclose (texto); 
-        fclose (commands_file); 
+        fclose (arquivo_operacoes); 
         fclose (saida);
         return 0;
     }

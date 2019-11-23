@@ -97,30 +97,36 @@ SplayTree* consulta_splay(SplayTree* nodo, char* palavra){
 			nodo = rot_direita(nodo);
 			if (nodo->esq == NULL) return nodo;
 			else return rot_direita(nodo);
-	} else if (strcmp(palavra, nodo->esq->palavra) > 0) {
+		} else if (strcmp(palavra, nodo->esq->palavra) > 0) {
 			nodo->esq->dir = consulta_splay(nodo->esq->dir, palavra);
-			if (nodo->esq->dir != NULL) nodo->esq = rot_esquerda(nodo->esq);
+			if (nodo->esq->dir != NULL) 
+				nodo->esq = rot_esquerda(nodo->esq);
 			return rot_direita(nodo);
-		} else return rot_direita(nodo);
+		} 
+		else return rot_direita(nodo);
 	} else if(strcmp(palavra, nodo->palavra) > 0) {
 			if (nodo->dir == NULL) return nodo;
 			if (strcmp(palavra, nodo->dir->palavra) > 0) {
-			nodo->dir->dir = consulta_splay(nodo->dir->dir, palavra);
-			nodo = rot_esquerda(nodo);
-			if (nodo->dir == NULL) return nodo;
+				nodo->dir->dir = consulta_splay(nodo->dir->dir, palavra);
+				nodo = rot_esquerda(nodo);
+				if (nodo->dir == NULL) return nodo;
+				else return rot_esquerda(nodo);
+			} else if (strcmp(palavra, nodo->dir->palavra) < 0) {
+				nodo->dir->esq = consulta_splay(nodo->dir->esq, palavra);
+				if (nodo->dir->esq != NULL) 
+					nodo->dir = rot_direita(nodo->dir);
+				return rot_esquerda(nodo);
+			}
 			else return rot_esquerda(nodo);
-		} else if (strcmp(palavra, nodo->dir->palavra) < 0) {
-			nodo->dir->esq = consulta_splay(nodo->dir->esq, palavra);
-			if (nodo->dir->esq != NULL) nodo->dir = rot_direita(nodo->dir);
-			return rot_esquerda(nodo);
-			} else return rot_esquerda(nodo);
-		} else return nodo;
+		}
+	else return nodo;
 }
 
 SplayTree* rot_direita(SplayTree* nodo){ 
 	SplayTree* aux = nodo->esq;
 	nodo->esq = aux->dir;
 	aux->dir = nodo;
+	rotacoes++;
 	return aux; 
 }
 
@@ -128,6 +134,7 @@ SplayTree* rot_esquerda(SplayTree* nodo){
 	SplayTree* aux = nodo->dir;
 	nodo->dir = aux->esq;
 	aux->esq = nodo;
+	rotacoes++;
 	return aux;
 }
 
@@ -156,11 +163,11 @@ void caminha_ECD(SplayTree* nodo){
 }
 
 int frequencia(char* palavra){
-	SplayTree* resultado_pesquisa = consulta_arvore(splay_tree, palavra);
-	if(strcmp(resultado_pesquisa->palavra, palavra) == 0){
-		return resultado_pesquisa->ocorrencias;
+	splay_tree = consulta_arvore(splay_tree, palavra);
+	if(strcmp(splay_tree->palavra, palavra) == 0){
+		return splay_tree->ocorrencias;
 	}
-	return -1;
+	return 0;
 }
 
 int soma_frequencias(SplayTree* nodo){
@@ -178,11 +185,47 @@ int altura(SplayTree* nodo){
 	if(nodo != NULL){
 		int altura_esq = altura(nodo->esq);
 		int altura_dir = altura(nodo->dir);
-		return 1 + (altura_dir > altura_esq)? altura_dir : altura_esq;
+		return (altura_dir > altura_esq)? 1 + altura_dir : 1 + altura_esq;
 	}
 	return 0;
 }
 
 int fator(SplayTree* nodo){
 	return (nodo != NULL)? altura(nodo->esq) - altura(nodo->dir) : 0;
+}
+
+
+int maior_fator(SplayTree* nodo){
+	if(nodo != NULL){
+		return get_maior(altura(nodo->esq) - altura(nodo->dir), maior_fator(nodo->esq), maior_fator(nodo->dir));
+	}
+	return 0;
+}
+
+int get_rotacoes(){
+	return rotacoes;
+}
+
+int get_comparacoes(){
+	return comparacoes;
+}
+
+
+int get_maior(int a, int b, int c){
+	if(a >= b){
+		if(a > c)
+			return a;
+		else
+			return c;
+	}if(c >= b){
+		if(c > a)
+			return c;
+		else
+			return a;
+	}if(b >= a){
+		if(b > c)
+			return b;
+		else
+			return c;
+	}
 }

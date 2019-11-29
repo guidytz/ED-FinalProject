@@ -6,6 +6,8 @@
 #include "aux.h"
 #include "splay.h"
 
+
+
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,"");
     FILE * texto;
@@ -49,7 +51,7 @@ int main( int argc, char *argv[] ) {
                     }                    
                 }
                 time_stamp = clock() - time_stamp;
-                fprintf(saida, "**********ESTATÍSTICAS DA GERAÇÃO DA ÁRVORE SPLAY *************\n");
+                fprintf(saida, "******** ESTATÍSTICAS DA GERAÇÃO DA ÁRVORE SPLAY ************\n");
                 fprintf(saida, "Número de nodos: %d\n", conta_nodos(splay_tree));
                 fprintf(saida, "Altura: %d\n", altura(splay_tree));
                 fprintf(saida, "Fator de Balanceamento: %d\n", maior_fator(splay_tree));
@@ -66,16 +68,24 @@ int main( int argc, char *argv[] ) {
                         string[strlen(string)-1] = '\0';
                         fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(string));
                     }else{
-                        int  b_1 = atoi(strtok(NULL, separador));
-                        int  b_2 = atoi(strtok(NULL, separador));
-                        
+                        int  lower_bound = atoi(strtok(NULL, separador));
+                        int  higher_bound = atoi(strtok(NULL, separador));
+                        char** lista = contador(lower_bound, higher_bound);
+                        for(int i = higher_bound - lower_bound; i >=0; i--){
+                            if(lista[i] != NULL){
+                                char* palavra = strtok(lista[i], " ");
+                                while(palavra != NULL){
+                                    fprintf(saida,"%s %d\n", palavra, lower_bound+i);
+                                    palavra = strtok(NULL, " ");
+                                }
+                            }
+                        }
                     }
                     fprintf(saida, "**************************\n");
                 }
                 time_stamp = clock() - time_stamp;
                 fprintf(saida, "Tempo: %f\n", ((double) time_stamp)/CLOCKS_PER_SEC);
                 fprintf(saida, "Comparacoes");
-                caminha_ECD(splay_tree);
                 destroi_arvore(splay_tree);
             }
         }

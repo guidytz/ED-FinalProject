@@ -210,7 +210,6 @@ int get_comparacoes(){
 	return comparacoes;
 }
 
-
 int get_maior(int a, int b, int c){
 	if(a >= b){
 		if(a > c)
@@ -228,4 +227,32 @@ int get_maior(int a, int b, int c){
 		else
 			return c;
 	}
+}
+
+void coleta_palavras(SplayTree* nodo, int l_b, int h_b, char** lista){
+	if(nodo != NULL){
+		coleta_palavras(nodo->esq, l_b, h_b, lista);
+		if(nodo->ocorrencias >= l_b && nodo->ocorrencias <= h_b){
+			if(lista[nodo->ocorrencias - l_b] != NULL){
+				char* nova_tupla = (char*) malloc(sizeof(char) * (strlen(nodo->palavra) + strlen(lista[nodo->ocorrencias - l_b]) + 2));
+				strcpy(nova_tupla, lista[nodo->ocorrencias - l_b]);
+				strcat(nova_tupla, " ");
+				strcat(nova_tupla, nodo->palavra);
+				free(lista[nodo->ocorrencias - l_b]);
+				lista[nodo->ocorrencias - l_b] = nova_tupla;
+			}else{
+				char* nova_tupla = (char*) malloc(sizeof(char) * strlen(nodo->palavra) + 2);
+				strcpy(nova_tupla, nodo->palavra);
+				lista[nodo->ocorrencias - l_b] = nova_tupla;
+			}
+		}
+		coleta_palavras(nodo->dir, l_b, h_b, lista);
+	}
+}
+
+ char** contador(int lower_bound, int higher_bound){
+	char **lista = (char **) malloc(sizeof(char*) * abs(higher_bound - lower_bound) + 1);
+	for(int i = 0 ; i <= (higher_bound - lower_bound); i++) lista[i] = NULL;
+	coleta_palavras(splay_tree, lower_bound, higher_bound, lista);
+	return lista;
 }

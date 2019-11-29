@@ -16,6 +16,7 @@ SplayTree* splay(SplayTree* nodo, char* palavra);
 SplayTree* consulta_arvore(SplayTree* nodo, char* palavra);
 SplayTree* remove_nodo(SplayTree* nodo, char* palavra);
 void destroi_arvore(SplayTree* nodo);
+char** contador(int lower_bound, int higher_bound);
 
 int conta_nodos(SplayTree* nodo);
 int altura(SplayTree* nodo);
@@ -26,7 +27,7 @@ int maior_fator(SplayTree* nodo);
 int get_rotacoes();
 int get_comparacoes();
 void caminha_ECD(SplayTree* nodo);
-int get_maior(int a, int b, int c);
+int get_maior(int a, int , int c);
 
 SplayTree* rot_esquerda(SplayTree* nodo);
 SplayTree* rot_direita(SplayTree* nodo);

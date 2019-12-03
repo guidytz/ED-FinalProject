@@ -7,9 +7,9 @@
 
 // declarar o nodo NULL
 RNtree* NodoNULL = NULL;
-int nNodos       = 0;
-int rotacoes     = 0;
-int comparacoes  = 0;
+long nNodos       = 0;
+long rotacoes     = 0;
+long comparacoes  = 0;
 
 // Funções Auxiliares
 RNtree* VerificaRN(RNtree* t, char* key);

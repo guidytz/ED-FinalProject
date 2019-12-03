@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 extern RNtree *t;
+extern int cmpContador;
 
 int frequencia(char *palavra);
 

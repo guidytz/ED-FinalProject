@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
                 time = clock() - time;
 
                 fprintf(saida, "\nTempo: %lf ms\n", ((double)time) / CLOCKS_PER_SEC * 1000.0);
-                fprintf(saida, "Comparações: %d\n", numComparacoes() - comps);
+                fprintf(saida, "Comparações: %d\n", numComparacoes() - comps + cmpContador);
 
                 Destroi(t);
                 printf("Arquivo %s gerado com sucesso.\n", argv[3]);

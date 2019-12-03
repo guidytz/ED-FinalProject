@@ -18,7 +18,7 @@ char *strlwr( char *str ) {
 #endif //__linux__
 
 char *stralloc( char *str ){
-    char *new_str = (char *) malloc(sizeof(char) * strlen(str));
+    char *new_str = (char *) malloc(sizeof(char) * strlen(str) + 1);
     strcpy(new_str, str);
     return new_str;
 }

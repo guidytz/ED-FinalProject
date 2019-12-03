@@ -4,6 +4,7 @@
 #include <string.h>
 
 RNtree *t = NULL;
+int cmpContador = 0; 
 
 int frequencia(char *palavra) {
     if (t == NULL) return -1;
@@ -19,6 +20,7 @@ void contador(int k1, int k2, FILE *f) {
     fillCountVec(freqs, k1, k2, t);
     for (int i = k2; i >= k1; i--) {
         if (freqs[i] != NULL) {
+            cmpContador++;
             char *str = strtok(freqs[i], " ");
             while (str != NULL) {
                 fprintf(f, "%s %d\n", str, i);
@@ -29,6 +31,7 @@ void contador(int k1, int k2, FILE *f) {
 
     for (int i = 0; i <= k2; i++) {
         if (freqs[i] != NULL) {
+            cmpContador++;
             free(freqs[i]);
             freqs[i] = NULL;
         }

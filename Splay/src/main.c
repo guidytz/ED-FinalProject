@@ -19,7 +19,7 @@ int main( int argc, char *argv[] ) {
     comparacoes = 0;
 
     char *palavra, linha[1000]; 
-    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:\n\t"};
+    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:\n\t\r"};
 
     if ( argc != 4 ) {
         printf ("\nNúmero incorreto de parâmetros.\n Para chamar o programa digite: contador <arq_texto> <arq_ops> <arq_saida>\n");
@@ -65,7 +65,6 @@ int main( int argc, char *argv[] ) {
                     char * string = strtok(linha, separador);
                     if(strcmp(string, "F") == 0){
                         string = strtok(NULL, separador);
-                        string[strlen(string)-1] = '\0';
                         fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(string));
                     }else{
                         int  lower_bound = atoi(strtok(NULL, separador));

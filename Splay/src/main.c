@@ -3,10 +3,20 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
+#include <ctype.h>
 #include "aux.h"
 #include "splay.h"
 
+char *str_lwr( char *str ) {
+    unsigned char *p = (unsigned char *)str;
 
+    while (*p) {
+        *p = tolower(*p);
+        p++;
+    }
+
+    return str;
+}
 
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,"");
@@ -19,7 +29,7 @@ int main( int argc, char *argv[] ) {
     comparacoes = 0;
 
     char *palavra, linha[1000]; 
-    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:\n\t"};
+    char separador[]= {" ,.&*\\%%\?\r!—;/-−'@\"$#=><()][}{:\n\t"};
 
     if ( argc != 4 ) {
         printf ("\nNúmero incorreto de parâmetros.\n Para chamar o programa digite: contador <arq_texto> <arq_ops> <arq_saida>\n");
@@ -59,14 +69,13 @@ int main( int argc, char *argv[] ) {
                 fprintf(saida, "Rotações: %d\n", get_rotacoes());
                 fprintf(saida, "Comparações: %d\n", get_comparacoes());
                 fprintf(saida, "*************************************************************\n");
-                time_stamp = clock(); 
+                time_stamp = clock();
                 while ( fgets(linha, 1000, arquivo_operacoes) ) {
                     fprintf(saida, "%s", linha);
                     char * string = strtok(linha, separador);
                     if(strcmp(string, "F") == 0){
                         string = strtok(NULL, separador);
-                        string[strlen(string)-1] = '\0';
-                        fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(string));
+                        fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(str_lwr(string)));
                     }else{
                         int  lower_bound = atoi(strtok(NULL, separador));
                         int  higher_bound = atoi(strtok(NULL, separador));

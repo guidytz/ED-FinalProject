@@ -59,7 +59,7 @@ int main( int argc, char *argv[] ) {
                 fprintf(saida, "Rotações: %d\n", get_rotacoes());
                 fprintf(saida, "Comparações: %d\n", get_comparacoes());
                 fprintf(saida, "*************************************************************\n");
-                time_stamp = clock();
+                time_stamp = clock(); 
                 while ( fgets(linha, 1000, arquivo_operacoes) ) {
                     fprintf(saida, "%s", linha);
                     char * string = strtok(linha, separador);

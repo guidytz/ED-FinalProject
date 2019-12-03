@@ -3,10 +3,20 @@
 #include <string.h>
 #include <locale.h>
 #include <time.h>
+#include <ctype.h>
 #include "aux.h"
 #include "splay.h"
 
+char *str_lwr( char *str ) {
+    unsigned char *p = (unsigned char *)str;
 
+    while (*p) {
+        *p = tolower(*p);
+        p++;
+    }
+
+    return str;
+}
 
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,"");
@@ -65,7 +75,11 @@ int main( int argc, char *argv[] ) {
                     char * string = strtok(linha, separador);
                     if(strcmp(string, "F") == 0){
                         string = strtok(NULL, separador);
+<<<<<<< HEAD
                         fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(string));
+=======
+                        fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(str_lwr(string)));
+>>>>>>> 6ccb478393904320e0ecfc48d6eb5c798def608e
                     }else{
                         int  lower_bound = atoi(strtok(NULL, separador));
                         int  higher_bound = atoi(strtok(NULL, separador));

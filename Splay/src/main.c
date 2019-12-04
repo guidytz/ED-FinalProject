@@ -29,7 +29,7 @@ int main( int argc, char *argv[] ) {
     comparacoes = 0;
 
     char *palavra, linha[1000]; 
-    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:\n\t\r"};
+    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:_^~+\n\t\r"};
 
     if ( argc != 4 ) {
         printf ("\nNúmero incorreto de parâmetros.\n Para chamar o programa digite: contador <arq_texto> <arq_ops> <arq_saida>\n");

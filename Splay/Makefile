@@ -11,11 +11,13 @@ H_SOURCE = $(wildcard ./inc/*.h)
 OBJ = $(subst .c,.o,$(subst src,obj,$(C_SOURCE)))
  
 # Compiler and linker
-CC=gcc
+CC = gcc
+
+LIBS = -lm
  
 # Flags for compiler
-CC_FLAGS=-c         \
-		 -I./inc
+CC_FLAGS = -c         \
+		   -I./inc	
  
 # Command used at clean target
 RM = rm -rf
@@ -23,11 +25,11 @@ RM = rm -rf
 #
 # Compilation and linking
 #
-all: objFolder $(PROJ_NAME)
+all: objFolder $(PROJ_NAME) clean
  
 $(PROJ_NAME): $(OBJ)
 	@ echo 'Building binary using GCC linker: $@'
-	@ $(CC) $^ -o $@ 
+	@ $(CC) $^ -o $@ $(LIBS)
 	@ echo 'Finished building binary: $@'
  
 ./obj/%.o: ./src/%.c ./inc/%.h
@@ -42,15 +44,11 @@ objFolder:
 	@ mkdir -p obj
  
 clean:
-	@ echo 'Removing object files'
 	@ $(RM) ./obj/*.o *~
 	@ rmdir obj
 
 remove:
 	@ echo 'Removing executable'
 	@ rm $(PROJ_NAME)
-
-remove-all: clean remove
-	@ echo 'All cleared'
  
-.PHONY: all clean remove remove-all
+.PHONY: all clean remove

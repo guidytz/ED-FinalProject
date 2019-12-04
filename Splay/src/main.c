@@ -7,16 +7,6 @@
 #include "aux.h"
 #include "splay.h"
 
-char *str_lwr( char *str ) {
-    unsigned char *p = (unsigned char *)str;
-
-    while (*p) {
-        *p = tolower(*p);
-        p++;
-    }
-
-    return str;
-}
 
 int main( int argc, char *argv[] ) {
     setlocale(LC_ALL,"");
@@ -29,7 +19,7 @@ int main( int argc, char *argv[] ) {
     comparacoes = 0;
 
     char *palavra, linha[1000]; 
-    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:_^~+\n\t\r"};
+    char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:_^~+|\n\t\r"};
 
     if ( argc != 4 ) {
         printf ("\nNúmero incorreto de parâmetros.\n Para chamar o programa digite: contador <arq_texto> <arq_ops> <arq_saida>\n");
@@ -75,7 +65,7 @@ int main( int argc, char *argv[] ) {
                     char * string = strtok(linha, separador);
                     if(strcmp(string, "F") == 0){
                         string = strtok(NULL, separador);
-                        fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(str_lwr(string)));
+                        fprintf(saida, "%s: %d ocorrencias\n", string, frequencia(strlwr(string)));
                     }else{
                         int  lower_bound = atoi(strtok(NULL, separador));
                         int  higher_bound = atoi(strtok(NULL, separador));

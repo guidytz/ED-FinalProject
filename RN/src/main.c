@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
     FILE *saida;
 
     char *palavra, linha[1000];
-    char separador[] = {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:_^~+\n\t\r"};
+    char separador[] = {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:_^~+|\n\t\r"};
 
     if (argc != 4) {
         printf("Número incorreto de parâmetros.\n Para chamar o programa digite: exemplo <arq_texto> <arq_ops> <arq_saida>\n");

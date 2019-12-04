@@ -15,3 +15,9 @@ Go to the specific folder (RN or Splay) and type:
 ```bash
     ./contador <text_file> <commands_file> <output_file>
 ```
+
+## Delete Executable Files
+
+```bash
+    make remove
+```

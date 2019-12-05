@@ -2,6 +2,7 @@
 #define __AUX_H__
 
 #ifdef __linux__
+
 /**
  * @brief Function that converts all characters in a string to lowercase
  * 

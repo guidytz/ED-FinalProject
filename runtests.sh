@@ -4,6 +4,11 @@ echo "Running tests for trees"
 echo -n "Type the tree you want to test: "
 read treeName
 
+if [ ! -d "results" ]
+then
+    mkdir results
+fi
+
 if [[ "$treeName" == "RN" ]] 
 then
     cd RN
@@ -26,7 +31,7 @@ then
         result=${file##*/}
         result=${result[@]//.txt/-Splay.txt}
         result=results/$result
-        RN/contador $file test_files/operations/op_1.txt $result
+        Splay/contador $file test_files/operations/op_1.txt $result
     done
 else 
     echo "Not a valid tree"

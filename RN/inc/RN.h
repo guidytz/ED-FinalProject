@@ -21,85 +21,85 @@ extern RNtree *NodoNULL;
 // Definicoes das Funcoes
 
 /**
- * @brief Insere um nó na árvore
+ * @brief Insere um no na arvore
  * 
- * @param t árvore R-N
- * @param key chave do nó a ser inserido
- * @return RNtree* árvore com o novo nó inserido
+ * @param t arvore R-N
+ * @param key chave do no a ser inserido
+ * @return RNtree* arvore com o novo no inserido
  */
 RNtree *Insere(RNtree *t, char *key);
 
 /**
- * @brief Consulta um nó na árvore
+ * @brief Consulta um no na arvore
  * 
  * @param key chave a ser consultada
- * @param t árvore a ser consultada 
- * @return RNtree* estrutura com o nó encontrado (caso não encontrado retorna NULL)
+ * @param t arvore a ser consultada 
+ * @return RNtree* estrutura com o no encontrado (caso nao encontrado retorna NULL)
  */
 RNtree *Consulta(char *key, RNtree *t);
 
 /**
- * @brief Remove um nó da árvore
+ * @brief Remove um no da arvore
  * 
- * @param t árvore que será removido o nó
- * @param key chave do nó a ser removido
- * @return RNtree* árvore sem o nó passado (caso não tenha, retorna  mesma)
+ * @param t arvore que será removido o no
+ * @param key chave do no a ser removido
+ * @return RNtree* arvore sem o no passado (caso nao tenha, retorna  mesma)
  */
 RNtree *Remove(RNtree *t, char *key);
 
 /**
- * @brief Desaloca toda estrutura de uma árvore alocada
+ * @brief Desaloca toda estrutura de uma arvore alocada
  * 
- * @param t árvora a ser desalocada
+ * @param t arvore a ser desalocada
  */
 void Destroi(RNtree *t);
 
 /**
- * @brief Conta a quantidade de nós presentes em uma árvore
+ * @brief Conta a quantidade de nos presentes em uma arvore
  * 
- * @param t árvore que deseja contar os nós
- * @return int número de nós encontrados
+ * @param t arvore que deseja contar os nos
+ * @return int numero de nos encontrados
  */
 int contaNodos(RNtree *t);
 
 /**
- * @brief Retorna a altura máxima de uma árvore
+ * @brief Retorna a altura maxima de uma arvore
  * 
- * @param t árvore que se deseja saber a altura
- * @return int altura máxima da árvore inserida
+ * @param t arvore que se deseja saber a altura
+ * @return int altura maxima da arvore inserida
  */
 int altura(RNtree *t);
 
 /**
- * @brief Retorna o fator máximo da árvore
+ * @brief Retorna o fator maximo da arvore
  * 
- * @param t árvora que se deseja saber o fator
- * @return int fator máximo da árvore inserida
+ * @param t arvore que se deseja saber o fator
+ * @return int fator maximo da arvore inserida
  */
 int fator(RNtree *t);
 
 /**
- * @brief Retorna o número de rotações operadas até o momento
+ * @brief Retorna o numero de rotacoes operadas ate o momento
  * 
- * @return long número de rotações operadas
+ * @return long numero de rotacoes operadas
  */
 long numRotacoes(void);
 
 /**
- * @brief Retorna o número de comparações operadas até o momento
+ * @brief Retorna o numero de comparacoes operadas ate o momento
  * 
- * @return long número de operações operadas
+ * @return long numero de comparacoes feitas
  */
 long numComparacoes(void);
 
 /**
- * @brief Dado um vetor de frequência strings, preenche ele com as strings nas posições 
- *        de acordo com a sua frequência
+ * @brief Dado um vetor de frequencia strings, preenche ele com as strings nas posições 
+ *        de acordo com a sua frequencia
  * 
- * @param freqs vetor de frequências de strings
- * @param k1 limite inferior de frequências
- * @param k2 limite superior de frequências
- * @param t árvore da qual se deseja obter as strings
+ * @param freqs vetor de frequencias de strings
+ * @param k1 limite inferior de frequencias
+ * @param k2 limite superior de frequencias
+ * @param t arvore da qual se deseja obter as strings
  */
 void fillCountVec(char **freqs, int k1, int k2, RNtree *t);
 

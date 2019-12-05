@@ -4,7 +4,7 @@
 #include <string.h>
 
 RNtree *t = NULL;
-int cmpContador = 0; 
+long cmpContador = 0; 
 
 int frequencia(char *palavra) {
     if (t == NULL) return -1;

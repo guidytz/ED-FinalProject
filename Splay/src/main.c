@@ -9,7 +9,7 @@
 
 
 int main( int argc, char *argv[] ) {
-    setlocale(LC_ALL,"");
+    setlocale(LC_CTYPE,"");
     FILE * texto;
     FILE * arquivo_operacoes;
     FILE * saida;
@@ -17,6 +17,7 @@ int main( int argc, char *argv[] ) {
     splay_tree = NULL;
     rotacoes = 0;
     comparacoes = 0;
+    long cmps = 0;
 
     char *palavra, linha[1000]; 
     char separador[]= {" ,.&*\\%%\?!—;/-−'@\"$#=><()][}{:_^~+|\n\t\r"};
@@ -55,9 +56,9 @@ int main( int argc, char *argv[] ) {
                 fprintf(saida, "Número de nodos: %d\n", conta_nodos(splay_tree));
                 fprintf(saida, "Altura: %d\n", altura(splay_tree));
                 fprintf(saida, "Fator de Balanceamento: %d\n", maior_fator(splay_tree));
-                fprintf(saida, "Tempo: %.5f\n", ((double) time_stamp) / CLOCKS_PER_SEC);
-                fprintf(saida, "Rotações: %d\n", get_rotacoes());
-                fprintf(saida, "Comparações: %d\n", get_comparacoes());
+                fprintf(saida, "Tempo: %lf ms\n", (((double) time_stamp) / CLOCKS_PER_SEC) * 1000);
+                fprintf(saida, "Rotações: %ld\n", get_rotacoes());
+                fprintf(saida, "Comparações: %ld\n", cmps = get_comparacoes());
                 fprintf(saida, "*************************************************************\n");
                 time_stamp = clock();
                 while ( fgets(linha, 1000, arquivo_operacoes) ) {
@@ -83,9 +84,10 @@ int main( int argc, char *argv[] ) {
                     fprintf(saida, "**************************\n");
                 }
                 time_stamp = clock() - time_stamp;
-                fprintf(saida, "Tempo: %f\n", ((double) time_stamp)/CLOCKS_PER_SEC);
-                fprintf(saida, "Comparacoes");
+                fprintf(saida, "Tempo: %lf ms\n", (((double) time_stamp) / CLOCKS_PER_SEC) * 1000.0);
+                fprintf(saida, "Comparações: %ld\n", get_comparacoes() - cmps);
                 destroi_arvore(splay_tree);
+                printf("Arquivo %s gerado com sucesso.\n", argv[3]);
             }
         }
         fclose (texto); 

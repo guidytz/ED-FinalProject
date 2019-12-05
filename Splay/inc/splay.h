@@ -8,7 +8,7 @@ struct SplayNode {
 };
 
 SplayTree* splay_tree;
-int rotacoes, comparacoes;
+long rotacoes, comparacoes;
 
 SplayTree* novo_nodo(char* palavra, SplayTree* esq, SplayTree* dir);
 SplayTree* insere_nodo(char* palavra, SplayTree* nodo);
@@ -24,8 +24,8 @@ int fator(SplayTree* nodo);
 int frequencia(char* palavra);
 int soma_frequencias(SplayTree* nodo);
 int maior_fator(SplayTree* nodo);
-int get_rotacoes();
-int get_comparacoes();
+long get_rotacoes();
+long get_comparacoes();
 void caminha_ECD(SplayTree* nodo);
 int get_maior(int a, int , int c);
 

@@ -22,6 +22,7 @@ int cmpKeys(char* k1, char* k2);
 RNtree* Insere(RNtree* t, char* key) {
     RNtree* x = t;
     if (t == NULL) {
+        comparacoes++;
         NodoNULL = (RNtree*)malloc(sizeof(RNtree));
         x        = (RNtree*)malloc(sizeof(RNtree));
 
@@ -46,18 +47,24 @@ RNtree* Insere(RNtree* t, char* key) {
     RNtree* v = p->pai;  // avo
 
     while (x != NodoNULL) {
+        comparacoes++;
         v       = p;
         p       = x;
         int res = cmpKeys(key, x->key);
-        if (res < 0)
+        if (res < 0){
+            comparacoes++;
             x = x->esq;
-        else if (res == 0)
+        } else if (res == 0) {
+            comparacoes++;
             break;
-        else
+        } else {
             x = x->dir;
+        }
+            
     }
 
     if (x != NodoNULL) {
+        comparacoes++;
         free(key);
         x->freq++;
         return t;  // Nodo ja Existe
@@ -82,8 +89,11 @@ RNtree* Insere(RNtree* t, char* key) {
 
 RNtree* Consulta(char* key, RNtree* t) {
     RNtree* x = t;
-    if (x == NodoNULL) return NodoNULL;
-    if (cmpKeys(x->key, key) == 0) return x;
+    if (x == NodoNULL) {
+        comparacoes++;
+        return NodoNULL;
+    }
+    if (cmpKeys(x->key, key) == 0) return x; // nesses ifs nao precisa somar o comparacoes por conta de haver a soma dentro do cmpKeys
     if (cmpKeys(key, x->key) < 0) return Consulta(key, t->esq);
     return Consulta(key, t->dir); 
 }
@@ -112,9 +122,12 @@ RNtree* VerificaRN(RNtree* t, char* key) {
 
     // caso 2
     if (p->red) {
+        comparacoes++;
         if (v != NodoNULL) {
+            comparacoes++;
             if (cmpKeys(p->key, v->key) < 0) {
                 if (v->dir->red) {           // tio e vermelho
+                    comparacoes++;
                     v->dir->red = 0;         // tio vira preto
                     p->red      = 0;         // troca a cor do pai
                     if (v->pai != NodoNULL)  // avo nao e raiz
@@ -149,6 +162,7 @@ RNtree* VerificaRN(RNtree* t, char* key) {
                 }
             } else {
                 if (v->esq->red) {
+                    comparacoes++;
                     v->esq->red = 0;         // tio vira preto
                     p->red      = 0;         // troca a cor do pai
                     if (v->pai != NodoNULL)  // avo não e raiz
@@ -196,11 +210,17 @@ RNtree* RotacaoSimplesDir(RNtree** t, RNtree* n) {
     n->esq        = aux->dir;
     aux->dir->pai = n;
     aux->pai      = n->pai;
-    if (aux->pai == NodoNULL) *t = aux;
-    if (n == n->pai->esq)
+    if (aux->pai == NodoNULL){
+        comparacoes++;
+        *t = aux;
+    }
+    if (n == n->pai->esq){
+        comparacoes++;
         n->pai->esq = aux;
-    else
+    }
+    else{
         n->pai->dir = aux;
+    }
     aux->dir = n;
     n->pai   = aux;
 
@@ -215,11 +235,17 @@ RNtree* RotacaoSimplesEsq(RNtree** t, RNtree* n) {
     n->dir      = aux->esq;
     n->dir->pai = n;
     aux->pai    = n->pai;
-    if (n->pai == NodoNULL) *t = aux;
-    if (n == n->pai->esq)
+    if (n->pai == NodoNULL) {
+        comparacoes++;
+        *t = aux;
+    }
+    if (n == n->pai->esq){
+        comparacoes++;
         n->pai->esq = aux;
-    else
+    }
+    else{
         n->pai->dir = aux;
+    }
     aux->esq = n;
     n->pai   = aux;
 
@@ -240,23 +266,30 @@ int contaNodos(RNtree* t) { return nNodos; }
 
 int altura(RNtree* t) {
     int esq, dir;
-    if (t == NodoNULL)
+    if (t == NodoNULL){
+        comparacoes++;
         return 0;
+    }
     else {
         esq = altura(t->esq);
         dir = altura(t->dir);
-        if (esq > dir)
+        if (esq > dir){
+            comparacoes++;
             return (1 + esq);
-        else
+        }
+        else{
             return (1 + dir);
+        }
     }
 }
 
 int fator(RNtree* t) {
     int esq, dir;
     int fator_esq, fator_dir;
-    if (t == NodoNULL)
+    if (t == NodoNULL){
+        comparacoes++;
         return 0;
+    }
     else {
         esq           = altura(t->esq);
         dir           = altura(t->dir);
@@ -276,7 +309,9 @@ void fillCountVec(char **freqs, int k1, int k2, RNtree *t){
     if (t == NodoNULL) return;
     fillCountVec(freqs, k1, k2, t->esq);
     if (t->freq >= k1 && t->freq <= k2) {
+        comparacoes++;
         if (freqs[t->freq] != NULL){
+            comparacoes++;
             char *str = (char *) malloc(sizeof(char) * (strlen(freqs[t->freq]) + strlen(t->key) + 3));
             strcpy(str, freqs[t->freq]);
             strcat(str, " ");
@@ -291,6 +326,6 @@ void fillCountVec(char **freqs, int k1, int k2, RNtree *t){
     fillCountVec(freqs, k1, k2, t->dir);
 }
 
-int numRotacoes(void) { return rotacoes; }
+long numRotacoes(void) { return rotacoes; }
 
-int numComparacoes(void) { return comparacoes; }
+long numComparacoes(void) { return comparacoes; }

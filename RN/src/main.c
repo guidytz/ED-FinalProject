@@ -47,15 +47,15 @@ int main(int argc, char *argv[]) {
                     }
                 }
                 time = clock() - time;
-                int comps = 0;
+                long comps = 0;
 
                 fprintf(saida, "******************** ESTATÍSTICAS DA GERAÇÃO DA ÁRVORE R-N ********************\n");
                 fprintf(saida, "Número de nodos: %d\n", contaNodos(t));
                 fprintf(saida, "Altura: %d\n", altura(t));
                 fprintf(saida, "Fator de Balanceamento: %d\n", fator(t));
                 fprintf(saida, "Tempo: %lf ms\n", ((double)time) / CLOCKS_PER_SEC * 1000.0);
-                fprintf(saida, "Rotações: %d\n", numRotacoes());
-                fprintf(saida, "Comparações: %d\n", comps = numComparacoes());
+                fprintf(saida, "Rotações: %ld\n", numRotacoes());
+                fprintf(saida, "Comparações: %ld\n", comps = numComparacoes());
                 fprintf(saida, "*******************************************************************************\n");
 
                 time = clock();
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
                 time = clock() - time;
 
                 fprintf(saida, "\nTempo: %lf ms\n", ((double)time) / CLOCKS_PER_SEC * 1000.0);
-                fprintf(saida, "Comparações: %d\n", numComparacoes() - comps + cmpContador);
+                fprintf(saida, "Comparações: %ld\n", numComparacoes() - comps + cmpContador);
 
                 Destroi(t);
                 printf("Arquivo %s gerado com sucesso.\n", argv[3]);

@@ -26,8 +26,8 @@ void Destroi(RNtree *t);
 int contaNodos(RNtree *t);
 int altura(RNtree *t);
 int fator(RNtree *t);
-int numRotacoes(void);
-int numComparacoes(void);
+long numRotacoes(void);
+long numComparacoes(void);
 void fillCountVec(char **freqs, int k1, int k2, RNtree *t);
 
 #endif  // __RN_H__

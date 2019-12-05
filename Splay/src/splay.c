@@ -15,21 +15,28 @@ SplayTree* insere_nodo(char* palavra, SplayTree* t){
 }
 
 SplayTree* consulta_arvore(SplayTree* nodo, char* palavra){
-	if (nodo == NULL) return NULL;
+	if (nodo == NULL) {
+		comparacoes++;
+		return NULL;
+	}
 	nodo = consulta_splay(nodo, palavra);
 	return nodo;
 }
 
 SplayTree* remove_nodo(SplayTree* nodo, char* palavra){
 	SplayTree* x;
-	if (nodo==NULL) return NULL;
+	if (nodo==NULL) {
+		comparacoes++;
+		return NULL;
+	}
 	nodo = consulta_arvore(nodo,palavra);
 	if (strcmp(palavra, nodo->palavra) == 0) {               /* achou */
 		if (nodo->esq == NULL) {
+			comparacoes++;
 			x = nodo->dir;
 		} else {
-		x = consulta_arvore(nodo->esq,palavra);
-		x->dir = nodo->dir;
+			x = consulta_arvore(nodo->esq,palavra);
+			x->dir = nodo->dir;
 		}
 		free(nodo);
 		return x;
@@ -46,14 +53,19 @@ void destroi_arvore(SplayTree* nodo){
 SplayTree* splay(SplayTree* nodo, char* palavra){
 	if (nodo == NULL) {
 		comparacoes++;
-		return novo_nodo(palavra, NULL, NULL);}
+		return novo_nodo(palavra, NULL, NULL);
+	}
 	if(strcmp(palavra, nodo->palavra) == 0){
 		comparacoes++;
 		nodo->ocorrencias++;
 		return nodo;
-	}if (strcmp(palavra, nodo->palavra) < 0){
+	}
+	if (strcmp(palavra, nodo->palavra) < 0){
 		comparacoes++;
-		if (nodo->esq == NULL) return novo_nodo(palavra, NULL, nodo);
+		if (nodo->esq == NULL) {
+			comparacoes++;
+			return novo_nodo(palavra, NULL, nodo);
+		}
 		if(strcmp(palavra, nodo->esq->palavra) == 0){
 			comparacoes++;
 			nodo->esq->ocorrencias++;
@@ -89,32 +101,57 @@ SplayTree* splay(SplayTree* nodo, char* palavra){
 }
 
 SplayTree* consulta_splay(SplayTree* nodo, char* palavra){
-	if (nodo == NULL) return NULL;
+	if (nodo == NULL) {
+		comparacoes++;
+		return NULL;
+	}
 	if (strcmp(palavra, nodo->palavra) < 0) {
-		if (nodo->esq == NULL) return nodo;
+		comparacoes++;
+		if (nodo->esq == NULL) {
+			comparacoes++;
+			return nodo;
+		}
 		if (strcmp(palavra, nodo->esq->palavra) < 0){
+			comparacoes++;
 			nodo->esq->esq = consulta_splay(nodo->esq->esq, palavra);
 			nodo = rot_direita(nodo);
-			if (nodo->esq == NULL) return nodo;
+			if (nodo->esq == NULL) {
+				comparacoes++;
+				return nodo;
+			}
 			else return rot_direita(nodo);
 		} else if (strcmp(palavra, nodo->esq->palavra) > 0) {
+			comparacoes++;
 			nodo->esq->dir = consulta_splay(nodo->esq->dir, palavra);
-			if (nodo->esq->dir != NULL) 
+			if (nodo->esq->dir != NULL){
+				comparacoes++;
 				nodo->esq = rot_esquerda(nodo->esq);
+			}
 			return rot_direita(nodo);
 		} 
 		else return rot_direita(nodo);
 	} else if(strcmp(palavra, nodo->palavra) > 0) {
-			if (nodo->dir == NULL) return nodo;
+			comparacoes++;
+			if (nodo->dir == NULL) {
+				comparacoes++;
+				return nodo;
+			}
 			if (strcmp(palavra, nodo->dir->palavra) > 0) {
+				comparacoes++;
 				nodo->dir->dir = consulta_splay(nodo->dir->dir, palavra);
 				nodo = rot_esquerda(nodo);
-				if (nodo->dir == NULL) return nodo;
+				if (nodo->dir == NULL) {
+					comparacoes++;
+					return nodo;
+				}
 				else return rot_esquerda(nodo);
 			} else if (strcmp(palavra, nodo->dir->palavra) < 0) {
+				comparacoes++;
 				nodo->dir->esq = consulta_splay(nodo->dir->esq, palavra);
-				if (nodo->dir->esq != NULL) 
+				if (nodo->dir->esq != NULL){
+					comparacoes++;
 					nodo->dir = rot_direita(nodo->dir);
+				}
 				return rot_esquerda(nodo);
 			}
 			else return rot_esquerda(nodo);
@@ -155,6 +192,7 @@ void Desenha(SplayTree* nodo, int nivel){
 
 void caminha_ECD(SplayTree* nodo){
 	if(nodo != NULL){
+		comparacoes++;
 		caminha_ECD(nodo->esq);
 		printf("\n%s", nodo->palavra);
 		printf(" %d", nodo->ocorrencias);
@@ -165,6 +203,7 @@ void caminha_ECD(SplayTree* nodo){
 int frequencia(char* palavra){
 	splay_tree = consulta_arvore(splay_tree, palavra);
 	if(strcmp(splay_tree->palavra, palavra) == 0){
+		comparacoes++;
 		return splay_tree->ocorrencias;
 	}
 	return 0;
@@ -183,6 +222,7 @@ int conta_nodos(SplayTree* nodo){
 
 int altura(SplayTree* nodo){
 	if(nodo != NULL){
+		comparacoes++;
 		int altura_esq = altura(nodo->esq);
 		int altura_dir = altura(nodo->dir);
 		return (altura_dir > altura_esq)? 1 + altura_dir : 1 + altura_esq;
@@ -197,33 +237,43 @@ int fator(SplayTree* nodo){
 
 int maior_fator(SplayTree* nodo){
 	if(nodo != NULL){
+		comparacoes++;
 		return get_maior(altura(nodo->esq) - altura(nodo->dir), maior_fator(nodo->esq), maior_fator(nodo->dir));
 	}
 	return 0;
 }
 
-int get_rotacoes(){
+long get_rotacoes(){
 	return rotacoes;
 }
 
-int get_comparacoes(){
+long get_comparacoes(){
 	return comparacoes;
 }
 
 int get_maior(int a, int b, int c){
 	if(a >= b){
-		if(a > c)
+		comparacoes++;
+		if(a > c){
+			comparacoes++;
 			return a;
+		}
 		else
 			return c;
 	}if(c >= b){
-		if(c > a)
+		comparacoes++;
+		if(c > a){
+			comparacoes++;
 			return c;
+		}
 		else
 			return a;
 	}if(b >= a){
-		if(b > c)
+		comparacoes++;
+		if(b > c){
+			comparacoes++;
 			return b;
+		}
 		else
 			return c;
 	}
@@ -231,9 +281,12 @@ int get_maior(int a, int b, int c){
 
 void coleta_palavras(SplayTree* nodo, int l_b, int h_b, char** lista){
 	if(nodo != NULL){
+		comparacoes++;
 		coleta_palavras(nodo->esq, l_b, h_b, lista);
 		if(nodo->ocorrencias >= l_b && nodo->ocorrencias <= h_b){
+			comparacoes++;
 			if(lista[nodo->ocorrencias - l_b] != NULL){
+				comparacoes++;
 				char* nova_tupla = (char*) malloc(sizeof(char) * (strlen(nodo->palavra) + strlen(lista[nodo->ocorrencias - l_b]) + 2));
 				strcpy(nova_tupla, lista[nodo->ocorrencias - l_b]);
 				strcat(nova_tupla, " ");
